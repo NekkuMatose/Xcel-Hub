@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Xcel Hub | Profile Settings</title>
+  <style>
+    :root {
+      --primary: #2e8b57;
+      --secondary: #35858e;
+      --bg: #f4fbf7;
+      --text: #1f2d2a;
+      --card: #ffffff;
+      --muted: #6f7e7a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--text);
+      background: linear-gradient(135deg, #eef8ff 0%, #f4fbf7 55%, #eefaf0 100%);
+      min-height: 100vh;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 28px;
+      background: #ffffffd9;
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid #dde9e2;
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      color: var(--secondary);
+      text-decoration: none;
+      letter-spacing: 0.3px;
+    }
+
+    .brand img {
+      width: auto;
+      height: 38px;
+      max-width: 160px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .back-btn {
+      border: none;
+      background: #edf8f2;
+      color: #2f5f4d;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid #d3e9dc;
+    }
+
+    .back-btn:hover { background: #e3f3ea; }
+
+    .container {
+      max-width: 900px;
+      margin: 28px auto;
+      padding: 0 20px 40px;
+    }
+
+    .settings-panel {
+      background: linear-gradient(180deg, #ffffff 0%, #fbfefd 100%);
+      border: 1px solid #deebe4;
+      border-radius: 18px;
+      padding: 0;
+      box-shadow: 0 10px 24px rgba(30, 70, 55, 0.08);
+      overflow: hidden;
+    }
+
+    .settings-header {
+      padding: 18px 20px 14px;
+      border-bottom: 1px solid #e7f0eb;
+      background: #f7fcf9;
+    }
+
+    .settings-header h2 {
+      margin: 0 0 6px;
+      color: #244a3c;
+      font-size: 1.12rem;
+      letter-spacing: 0.2px;
+    }
+
+    .settings-header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .settings-body { padding: 18px 20px 8px; }
+
+    .settings-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .field-group label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 7px;
+      color: #2d4f46;
+      font-size: 0.88rem;
+      letter-spacing: 0.15px;
+    }
+
+    .field-group input,
+    .field-group select {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid #cfe1d8;
+      border-radius: 10px;
+      font-size: 0.94rem;
+      outline: none;
+      background: #fff;
+    }
+
+    .password-field-wrap { position: relative; }
+    .password-field-wrap input { padding-right: 86px; }
+
+    .toggle-visibility-btn {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 1px solid #cfe1d8;
+      background: #f7fbf9;
+      color: #2f5f4d;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border-radius: 8px;
+      padding: 6px 10px;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .toggle-visibility-btn:hover { background: #edf8f2; }
+
+    .field-group input:focus,
+    .field-group select:focus {
+      border-color: #2e8b57;
+      box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.12);
+    }
+
+    .settings-actions {
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 14px 20px 16px;
+      border-top: 1px solid #e7f0eb;
+      background: #fcfffd;
+      position: sticky;
+      bottom: 0;
+    }
+
+    .save-settings-btn {
+      border: none;
+      background: #2e8b57;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      min-width: 150px;
+    }
+
+    .save-settings-btn:hover { background: #247448; }
+
+    .save-settings-btn.saving {
+      pointer-events: none;
+      animation: settingsPulse 0.8s ease;
+    }
+
+    .save-settings-btn.saving::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, rgba(255,255,255,0.55) 8%, rgba(255,255,255,0) 60%);
+      animation: settingsRipple 0.8s ease-out forwards;
+    }
+
+    .settings-feedback {
+      min-height: 20px;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .settings-feedback.success { color: #1f7a4f; }
+    .settings-feedback.error { color: #b13b35; }
+
+    @keyframes settingsPulse {
+      0% { transform: scale(1); }
+      35% { transform: scale(1.04); }
+      70% { transform: scale(0.98); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes settingsRipple {
+      from { transform: scale(0); opacity: 0.9; }
+      to { transform: scale(2.2); opacity: 0; }
+    }
+
+    @media (max-width: 760px) {
+      .settings-grid { grid-template-columns: 1fr; }
+      .settings-actions { align-items: stretch; }
+      .save-settings-btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="Dashboard.html">
+      <img src="xcel-hub-logo.png" alt="Xcel Hub Logo" />
+      <span>Profile Settings</span>
+    </a>
+    <button class="back-btn" id="backToDashboardBtn">Back to Dashboard</button>
+  </header>
+
+  <main class="container">
+    <section class="settings-panel">
+      <div class="settings-header">
+        <h2>⚙️ Account Settings</h2>
+        <p>Manage your account details securely. Changes apply immediately to your active session.</p>
+      </div>
+      <form id="settingsForm">
+        <div class="settings-body">
+          <div class="settings-grid">
+            <div class="field-group">
+              <label for="settingsUsername">Username</label>
+              <input type="text" id="settingsUsername" required />
+            </div>
+            <div class="field-group">
+              <label for="settingsPassword">Password</label>
+              <div class="password-field-wrap">
+                <input type="password" id="settingsPassword" required />
+                <button type="button" class="toggle-visibility-btn" id="toggleSettingsPasswordBtn">Show</button>
+              </div>
+            </div>
+            <div class="field-group">
+              <label for="settingsQuestion">Security Question</label>
+              <select id="settingsQuestion" required>
+                <option value="pet">What is your childhood pet's name?</option>
+                <option value="city">What city were you born in?</option>
+                <option value="mother">What is your mother's maiden name?</option>
+                <option value="school">What was the name of your first school?</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="settingsAnswer">Security Answer</label>
+              <input type="text" id="settingsAnswer" required />
+            </div>
+            <div class="field-group">
+              <label for="settingsProfileImage">Profile Picture</label>
+              <input type="file" id="settingsProfileImage" accept="image/*" />
+            </div>
+          </div>
+        </div>
+        <div class="settings-actions">
+          <span class="settings-feedback" id="settingsFeedback"></span>
+          <button type="submit" class="save-settings-btn" id="saveSettingsBtn">Save Changes</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    let loggedInUser = localStorage.getItem('xcelCurrentUser');
+
+    if (!loggedInUser) {
+      window.location.href = 'SignIn.html';
+    }
+
+    const settingsForm = document.getElementById('settingsForm');
+    const settingsUsername = document.getElementById('settingsUsername');
+    const settingsPassword = document.getElementById('settingsPassword');
+    const settingsQuestion = document.getElementById('settingsQuestion');
+    const settingsAnswer = document.getElementById('settingsAnswer');
+    const settingsFeedback = document.getElementById('settingsFeedback');
+    const saveSettingsBtn = document.getElementById('saveSettingsBtn');
+    const toggleSettingsPasswordBtn = document.getElementById('toggleSettingsPasswordBtn');
+    const settingsProfileImage = document.getElementById('settingsProfileImage');
+    const backToDashboardBtn = document.getElementById('backToDashboardBtn');
+
+    backToDashboardBtn.addEventListener('click', () => {
+      window.location.href = 'Dashboard.html';
+    });
+
+    function loadSettingsForm() {
+      const usersDB = JSON.parse(localStorage.getItem('xcelUsers') || '{}');
+      const userRecord = usersDB[loggedInUser];
+      if (!userRecord) return;
+
+      settingsUsername.value = loggedInUser;
+      settingsPassword.value = userRecord.password || '';
+      settingsQuestion.value = userRecord.securityQuestion || 'pet';
+      settingsAnswer.value = userRecord.securityAnswer || '';
+
+      settingsPassword.defaultValue = settingsPassword.value;
+      settingsQuestion.defaultValue = settingsQuestion.value;
+      settingsAnswer.defaultValue = settingsAnswer.value;
+    }
+
+    function setSettingsFeedback(message, type) {
+      settingsFeedback.textContent = message;
+      settingsFeedback.classList.remove('success', 'error');
+      if (type) settingsFeedback.classList.add(type);
+    }
+
+    function appendActivityLog(username, action) {
+      const logs = JSON.parse(localStorage.getItem('xcelActivityLogs') || '[]');
+      logs.unshift({
+        username,
+        action,
+        timestamp: new Date().toISOString()
+      });
+      localStorage.setItem('xcelActivityLogs', JSON.stringify(logs.slice(0, 100)));
+    }
+
+
+    toggleSettingsPasswordBtn.addEventListener('click', () => {
+      const isHidden = settingsPassword.type === 'password';
+      settingsPassword.type = isHidden ? 'text' : 'password';
+      toggleSettingsPasswordBtn.textContent = isHidden ? 'Hide' : 'Show';
+    });
+
+    settingsForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const newUsername = settingsUsername.value.trim();
+      const newPassword = settingsPassword.value;
+      const newQuestion = settingsQuestion.value;
+      const newAnswer = settingsAnswer.value.trim().toLowerCase();
+
+      const usersDB = JSON.parse(localStorage.getItem('xcelUsers') || '{}');
+
+      if (!usersDB[loggedInUser]) {
+        setSettingsFeedback('Session user not found. Please login again.', 'error');
+        return;
+      }
+
+      if (!newUsername || !newPassword || !newQuestion || !newAnswer) {
+        setSettingsFeedback('All fields are required.', 'error');
+        return;
+      }
+
+      if (newUsername !== loggedInUser && usersDB[newUsername]) {
+        setSettingsFeedback('Username already exists. Choose another one.', 'error');
+        return;
+      }
+
+      const existingImage = usersDB[loggedInUser].profileImage || '';
+      let nextProfileImage = existingImage;
+
+      const selectedFile = settingsProfileImage.files && settingsProfileImage.files[0];
+      if (selectedFile) {
+        if (!selectedFile.type.startsWith('image/')) {
+          setSettingsFeedback('Selected file must be an image.', 'error');
+          return;
+        }
+
+        if (selectedFile.size > 2 * 1024 * 1024) {
+          setSettingsFeedback('Image must be 2MB or smaller.', 'error');
+          return;
+        }
+
+        nextProfileImage = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = () => reject(new Error('Image read failed'));
+          reader.readAsDataURL(selectedFile);
+        }).catch(() => {
+          setSettingsFeedback('Could not read selected image.', 'error');
+          return null;
+        });
+
+        if (!nextProfileImage) return;
+      }
+
+      const updatedRecord = {
+        password: newPassword,
+        securityQuestion: newQuestion,
+        securityAnswer: newAnswer,
+        profileImage: nextProfileImage || ''
+      };
+
+      if (newUsername !== loggedInUser) {
+        delete usersDB[loggedInUser];
+      }
+
+      usersDB[newUsername] = updatedRecord;
+      localStorage.setItem('xcelUsers', JSON.stringify(usersDB));
+      localStorage.setItem('xcelCurrentUser', newUsername);
+
+      if (newUsername !== loggedInUser) {
+        appendActivityLog(newUsername, `Username changed from ${loggedInUser} to ${newUsername}`);
+      } else {
+        appendActivityLog(newUsername, 'Account settings updated');
+      }
+
+      if (newPassword !== settingsPassword.defaultValue) {
+        appendActivityLog(newUsername, 'Password updated');
+      }
+
+      if (newQuestion !== settingsQuestion.defaultValue || newAnswer !== (settingsAnswer.defaultValue || '').trim().toLowerCase()) {
+        appendActivityLog(newUsername, 'Security question/answer updated');
+      }
+
+      if (nextProfileImage !== (existingImage || '')) {
+        appendActivityLog(newUsername, 'Profile image updated');
+      }
+
+      loggedInUser = newUsername;
+
+      settingsPassword.defaultValue = newPassword;
+      settingsQuestion.defaultValue = newQuestion;
+      settingsAnswer.defaultValue = newAnswer;
+
+      saveSettingsBtn.classList.add('saving');
+      setSettingsFeedback('Settings updated successfully.', 'success');
+      settingsProfileImage.value = '';
+
+      setTimeout(() => {
+        saveSettingsBtn.classList.remove('saving');
+      }, 820);
+    });
+
+    loadSettingsForm();
+  </script>
+</body>
+</html>

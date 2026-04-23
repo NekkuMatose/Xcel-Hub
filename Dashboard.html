@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Xcel Hub | Dashboard</title>
+  <style>
+    :root {
+      --primary: #2e8b57;
+      --secondary: #35858e;
+      --bg: #f4fbf7;
+      --text: #1f2d2a;
+      --card: #ffffff;
+      --muted: #6f7e7a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--text);
+      background: linear-gradient(135deg, #eef8ff 0%, #f4fbf7 55%, #eefaf0 100%);
+      min-height: 100vh;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 28px;
+      background: #ffffffd9;
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid #dde9e2;
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      color: var(--secondary);
+      letter-spacing: 0.3px;
+    }
+
+    .brand img {
+      width: auto;
+      height: 38px;
+      max-width: 160px;
+      border-radius: 0;
+      object-fit: contain;
+      display: block;
+    }
+
+    .logout-btn {
+      border: none;
+      background: var(--primary);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .logout-btn:hover { background: #247448; }
+
+    .container {
+      max-width: 1050px;
+      margin: 28px auto;
+      padding: 0 20px 40px;
+    }
+
+    .hero {
+      background: linear-gradient(120deg, #2e8b57 0%, #35858e 100%);
+      color: #fff;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 12px 26px rgba(32, 86, 66, 0.2);
+      margin-bottom: 22px;
+    }
+
+    .hero-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .hero h1 { margin: 0 0 8px; font-size: 1.8rem; }
+    .hero p { margin: 0; opacity: 0.95; }
+
+    .hero-avatar {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.72);
+      object-fit: cover;
+      background: rgba(255,255,255,0.25);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid #e1ece6;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 8px 18px rgba(30, 70, 55, 0.06);
+    }
+
+    .card-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: #edf8f2;
+      border: 1px solid #d7eadf;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      color: #2f5f4d;
+      font-size: 1.2rem;
+      font-weight: 700;
+      overflow: hidden;
+    }
+
+    .card h3 { margin: 0 0 8px; color: var(--secondary); font-size: 1rem; }
+    .card p { margin: 0; color: var(--muted); font-size: 0.95rem; line-height: 1.45; }
+
+    .action-panel {
+      background: #fff;
+      border: 1px solid #e1ece6;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 8px 18px rgba(30, 70, 55, 0.06);
+      margin-bottom: 18px;
+    }
+
+    .activity-panel {
+      background: #fff;
+      border: 1px solid #e1ece6;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 8px 18px rgba(30, 70, 55, 0.06);
+      margin-bottom: 18px;
+    }
+
+    .activity-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      color: #2e4f47;
+    }
+
+    .activity-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .activity-item {
+      border: 1px solid #e2eee7;
+      background: #fbfefd;
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+
+    .activity-item strong {
+      display: block;
+      color: #2d4f46;
+      font-size: 0.92rem;
+      margin-bottom: 4px;
+    }
+
+    .activity-time {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .activity-empty {
+      color: var(--muted);
+      font-size: 0.94rem;
+      margin: 0;
+    }
+
+
+    .action-panel h2 { margin: 0 0 10px; color: #2e4f47; font-size: 1.2rem; }
+    .action-panel p { margin: 0 0 16px; color: var(--muted); }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .actions a {
+      text-decoration: none;
+      background: #edf8f2;
+      border: 1px solid #d3e9dc;
+      color: #2f5f4d;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .actions a:hover { background: #e3f3ea; }
+
+    .chatbot-toggle {
+      position: fixed;
+      bottom: 75px;
+      right: 30px;
+      background-color: #35858E;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+      z-index: 1000;
+      transition: transform 0.3s, background-color 0.3s;
+    }
+
+    .chatbot-toggle:hover {
+      transform: scale(1.1);
+      background-color: #5B7E3C;
+    }
+
+    .chat-window {
+      position: fixed;
+      bottom: 145px;
+      right: 30px;
+      width: 320px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 1000;
+      border: 1px solid #ddd;
+    }
+
+    .chat-header {
+      background-color: #A2CB8B;
+      color: white;
+      padding: 15px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .close-chat { cursor: pointer; font-size: 18px; font-weight: bold; }
+
+    .chat-body {
+      height: 300px;
+      padding: 15px;
+      overflow-y: auto;
+      background-color: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .chat-message {
+      max-width: 80%;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .bot-message {
+      background-color: #e0e0e0;
+      align-self: flex-start;
+      border-bottom-left-radius: 0;
+    }
+
+    .user-message {
+      background-color: #A2CB8B;
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 0;
+    }
+
+    .chat-footer { display: flex; border-top: 1px solid #ddd; }
+    .chat-footer input {
+      flex-grow: 1;
+      border: none;
+      padding: 12px;
+      outline: none;
+      border-radius: 0;
+    }
+
+    .chat-footer button {
+      width: auto;
+      margin: 0;
+      border-radius: 0;
+      background-color: #A2CB8B;
+      padding: 0 20px;
+      border: none;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .logout-modal-overlay,
+    .quick-nav-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 25, 22, 0.45);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(2px);
+    }
+
+    .logout-modal-overlay { z-index: 2000; }
+    .quick-nav-modal-overlay { z-index: 2200; }
+
+    .logout-modal-overlay.show,
+    .quick-nav-modal-overlay.show {
+      display: flex;
+      animation: modalFadeIn 0.28s ease forwards;
+    }
+
+    .logout-modal,
+    .quick-nav-modal {
+      width: min(92vw, 430px);
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 22px 20px 18px;
+      box-shadow: 0 18px 38px rgba(0, 0, 0, 0.22);
+      border: 1px solid #e3ece7;
+      transform: scale(0.88) translateY(6px);
+      opacity: 0;
+      animation: modalPopIn 0.35s cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
+    }
+
+    .logout-modal h3,
+    .quick-nav-modal h3 {
+      margin: 0 0 8px;
+      color: #244a3c;
+      font-size: 1.05rem;
+    }
+
+    .logout-modal p,
+    .quick-nav-modal p {
+      margin: 0;
+      color: #5b6f67;
+      font-size: 0.95rem;
+      line-height: 1.45;
+    }
+
+    .logout-actions,
+    .quick-nav-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .logout-actions button,
+    .quick-nav-actions button {
+      width: auto;
+      margin: 0;
+      border: none;
+      border-radius: 10px;
+      padding: 9px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    }
+
+    .btn-cancel, .btn-quick-cancel { background: #edf4f1; color: #36564a; }
+    .btn-confirm { background: #d9534f; color: #fff; }
+    .btn-quick-continue { background: #2e8b57; color: #fff; }
+
+    .logout-actions button:hover,
+    .quick-nav-actions button:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 8px 14px rgba(0, 0, 0, 0.12);
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes modalPopIn {
+      0% { opacity: 0; transform: scale(0.88) translateY(8px); }
+      70% { opacity: 1; transform: scale(1.03) translateY(0); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <img src="xcel-hub-logo.png" alt="Xcel Hub Logo" />
+      <span>Xcel Hub Dashboard</span>
+    </div>
+    <button class="logout-btn" id="logoutBtn">Log Out</button>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-content">
+        <div>
+          <h1 id="welcomeTitle">Welcome!</h1>
+          <p>Access your training workspace, quick links, and personalized session tools.</p>
+        </div>
+        <img id="heroAvatar" class="hero-avatar" src="https://ui-avatars.com/api/?name=User&background=ffffff&color=2e8b57&bold=true" alt="Profile picture" />
+      </div>
+    </section>
+
+    <section class="cards">
+      <article class="card">
+        <div class="card-icon">👤</div>
+        <h3>Profile</h3>
+        <p id="profileText">Signed in as user.</p>
+      </article>
+      <article class="card">
+        <div class="card-icon">📊</div>
+        <h3>Session Status</h3>
+        <p>Active and ready for training record input.</p>
+      </article>
+      <article class="card">
+        <div class="card-icon">🔒</div>
+        <h3>Security</h3>
+        <p>Use logout after every class demo for account safety.</p>
+      </article>
+      <article class="card">
+        <div class="card-icon">📁</div>
+        <h3>Export</h3>
+        <p>You can still export your session record as CSV from SignIn page app form.</p>
+      </article>
+    </section>
+
+    <section class="action-panel">
+      <h2>Quick Actions</h2>
+      <p>Quick access to Other Site</p>
+      <div class="actions">
+        <a href="ProfileSettings.html" id="openProfileSettingsLink">Open Profile Settings</a>
+        <a href="SignIn.html" id="openSignInLink">Open Sign In</a>
+        <a href="Landing.html" id="openLandingLink">Open Landing Page</a>
+      </div>
+    </section>
+
+    <section class="activity-panel">
+      <div class="activity-header">
+        <div class="card-icon">🕒</div>
+        <div>
+          <h2 style="margin:0; font-size:1.08rem;">Recent Activities</h2>
+          <p style="margin:4px 0 0; color:var(--muted); font-size:0.92rem;">Track your progress and account history changes.</p>
+        </div>
+      </div>
+      <ul class="activity-list" id="activityList"></ul>
+      <p class="activity-empty" id="activityEmpty">No recent activity yet.</p>
+    </section>
+  </main>
+
+
+  <div class="logout-modal-overlay" id="logoutModalOverlay">
+    <div class="logout-modal">
+      <h3>Confirm Logout</h3>
+      <p>Do you want to log out?</p>
+      <div class="logout-actions">
+        <button class="btn-cancel" id="cancelLogoutBtn">Cancel</button>
+        <button class="btn-confirm" id="confirmLogoutBtn">Yes, Log Out</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="quick-nav-modal-overlay" id="quickNavModalOverlay">
+    <div class="quick-nav-modal">
+      <h3>Navigation Warning</h3>
+      <p id="quickNavMessage">You are about to leave this page. Continue?</p>
+      <div class="quick-nav-actions">
+        <button class="btn-quick-cancel" id="cancelQuickNavBtn">Cancel</button>
+        <button class="btn-quick-continue" id="confirmQuickNavBtn">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="chatbot-toggle" onclick="toggleChat()">💬</div>
+
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+      Xcel Support Bot
+      <span class="close-chat" onclick="toggleChat()">✖</span>
+    </div>
+    <div class="chat-body" id="chatBody">
+      <div class="chat-message bot-message">Hello! I can help you with the Xcel Hub system or answer general simple questions. Try me!</div>
+    </div>
+    <div class="chat-footer">
+      <input type="text" id="chatInput" placeholder="Type a message..." onkeypress="handleEnter(event)">
+      <button onclick="sendChatMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    let loggedInUser = localStorage.getItem('xcelCurrentUser');
+
+    if (!loggedInUser) {
+      window.location.href = 'SignIn.html';
+    } else {
+      document.getElementById('welcomeTitle').textContent = `Welcome, ${loggedInUser}!`;
+      document.getElementById('profileText').textContent = `Signed in as ${loggedInUser}.`;
+    }
+
+    const usersDB = JSON.parse(localStorage.getItem('xcelUsers') || '{}');
+    const userRecord = usersDB[loggedInUser];
+    const heroAvatar = document.getElementById('heroAvatar');
+    if (userRecord?.profileImage) {
+      heroAvatar.src = userRecord.profileImage;
+    }
+
+    const logoutBtn = document.getElementById('logoutBtn');
+    const logoutModalOverlay = document.getElementById('logoutModalOverlay');
+    const cancelLogoutBtn = document.getElementById('cancelLogoutBtn');
+    const confirmLogoutBtn = document.getElementById('confirmLogoutBtn');
+
+    const openProfileSettingsLink = document.getElementById('openProfileSettingsLink');
+    const openSignInLink = document.getElementById('openSignInLink');
+    const openLandingLink = document.getElementById('openLandingLink');
+    const quickNavModalOverlay = document.getElementById('quickNavModalOverlay');
+    const quickNavMessage = document.getElementById('quickNavMessage');
+    const cancelQuickNavBtn = document.getElementById('cancelQuickNavBtn');
+    const confirmQuickNavBtn = document.getElementById('confirmQuickNavBtn');
+    const activityList = document.getElementById('activityList');
+    const activityEmpty = document.getElementById('activityEmpty');
+    let pendingQuickNavUrl = '';
+
+
+    logoutBtn.addEventListener('click', () => logoutModalOverlay.classList.add('show'));
+    cancelLogoutBtn.addEventListener('click', () => logoutModalOverlay.classList.remove('show'));
+    logoutModalOverlay.addEventListener('click', (event) => {
+      if (event.target === logoutModalOverlay) logoutModalOverlay.classList.remove('show');
+    });
+    confirmLogoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('xcelCurrentUser');
+      window.location.href = 'SignIn.html';
+    });
+
+    function appendActivityLog(username, action) {
+      const logs = JSON.parse(localStorage.getItem('xcelActivityLogs') || '[]');
+      logs.unshift({
+        username,
+        action,
+        timestamp: new Date().toISOString()
+      });
+      localStorage.setItem('xcelActivityLogs', JSON.stringify(logs.slice(0, 100)));
+    }
+
+    function formatActivityTime(isoValue) {
+      const date = new Date(isoValue);
+      if (Number.isNaN(date.getTime())) return '';
+      return date.toLocaleString();
+    }
+
+    function renderRecentActivities() {
+      const logs = JSON.parse(localStorage.getItem('xcelActivityLogs') || '[]');
+      const userLogs = logs
+        .filter(log => log && log.username === loggedInUser)
+        .slice(0, 6);
+
+      activityList.innerHTML = '';
+
+      if (!userLogs.length) {
+        activityEmpty.style.display = 'block';
+        return;
+      }
+
+      activityEmpty.style.display = 'none';
+
+      userLogs.forEach(log => {
+        const item = document.createElement('li');
+        item.className = 'activity-item';
+        item.innerHTML = `<strong>${log.action}</strong><span class="activity-time">${formatActivityTime(log.timestamp)}</span>`;
+        activityList.appendChild(item);
+      });
+    }
+
+    appendActivityLog(loggedInUser, 'Opened Dashboard');
+    renderRecentActivities();
+
+    function openQuickNavWarning(targetUrl) {
+      pendingQuickNavUrl = targetUrl;
+      if (targetUrl === 'SignIn.html') {
+        quickNavMessage.textContent = 'You are about to open the Sign In page. Continue?';
+      } else if (targetUrl === 'Landing.html') {
+        quickNavMessage.textContent = 'You are about to open the Landing page. Continue?';
+      } else if (targetUrl === 'ProfileSettings.html') {
+        quickNavMessage.textContent = 'You are about to open Profile Settings. Continue?';
+      } else {
+        quickNavMessage.textContent = 'You are about to leave this page. Continue?';
+      }
+      quickNavModalOverlay.classList.add('show');
+    }
+
+    openProfileSettingsLink.addEventListener('click', (event) => {
+      event.preventDefault();
+      openQuickNavWarning('ProfileSettings.html');
+    });
+
+    openSignInLink.addEventListener('click', (event) => {
+      event.preventDefault();
+      openQuickNavWarning('SignIn.html');
+    });
+
+    openLandingLink.addEventListener('click', (event) => {
+      event.preventDefault();
+      openQuickNavWarning('Landing.html');
+    });
+
+    cancelQuickNavBtn.addEventListener('click', () => {
+      quickNavModalOverlay.classList.remove('show');
+      pendingQuickNavUrl = '';
+    });
+
+    quickNavModalOverlay.addEventListener('click', (event) => {
+      if (event.target === quickNavModalOverlay) {
+        quickNavModalOverlay.classList.remove('show');
+        pendingQuickNavUrl = '';
+      }
+    });
+
+    confirmQuickNavBtn.addEventListener('click', () => {
+      if (pendingQuickNavUrl) window.location.href = pendingQuickNavUrl;
+    });
+
+    function toggleChat() {
+      const chatWindow = document.getElementById('chatWindow');
+      const currentStyle = window.getComputedStyle(chatWindow).display;
+      chatWindow.style.display = currentStyle === 'none' ? 'flex' : 'none';
+    }
+
+    function handleEnter(event) {
+      if (event.key === "Enter") sendChatMessage();
+    }
+
+    function sendChatMessage() {
+      const inputField = document.getElementById('chatInput');
+      const messageText = inputField.value.trim();
+      if (messageText === "") return;
+
+      addMessageToChat("user-message", messageText);
+      inputField.value = "";
+
+      setTimeout(() => {
+        const botReply = generateBotResponse(messageText.toLowerCase());
+        addMessageToChat("bot-message", botReply);
+      }, 500);
+    }
+
+    function addMessageToChat(className, text) {
+      const chatBody = document.getElementById('chatBody');
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `chat-message ${className}`;
+      messageDiv.innerText = text;
+      chatBody.appendChild(messageDiv);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    function generateBotResponse(input) {
+      const normalized = String(input || "").toLowerCase().replace(/[^\w\s]/g, " ").replace(/\s+/g, " ").trim();
+      const includesAny = (arr) => arr.some(word => normalized.includes(word));
+      const hasAll = (arr) => arr.every(word => normalized.includes(word));
+
+      if (/^[0-9\s\+\-\*\/\(\)\.]+$/.test(normalized)) {
+        try { return `That equals: ${eval(normalized)}`; }
+        catch (e) { return "I couldn't calculate that. Please send a simple math expression like 25*4 or (8+2)/5."; }
+      }
+
+      if (includesAny(["what is xcel hub", "about xcel hub", "who is xcel hub", "who are xcel hub"])) {
+        return "Xcel Hub is a training-services portal used for account access, session tracking, and training record workflows. In this system, users can register, sign in, manage account settings, and export training records.";
+      }
+      if (includesAny(["mission", "vision", "goal", "goals", "purpose of xcel hub"])) {
+        return "Xcel Hub's goal in this platform is to support structured learning workflows by making user access, session tracking, and output documentation simple, secure, and consistent.";
+      }
+      if (includesAny(["services", "what do you offer", "training services", "features of xcel hub"])) {
+        return "Xcel Hub provides user registration/login, password recovery, dashboard access, account settings, and chatbot guidance for training workflows.";
+      }
+      if (includesAny(["company background", "company overview", "about the company", "xcel hub details"])) {
+        return "Within this application context, Xcel Hub is presented as a training services system focused on managing trainee access, session workflows, and record output. For official corporate profile details, consult your organization admin documentation.";
+      }
+      if (includesAny(["contact", "support", "help desk", "administrator", "admin"])) {
+        return "For support in this system, contact your assigned Xcel Hub administrator or training coordinator. You can also ask me about login, account recovery, dashboard usage, and account support.";
+      }
+      if (includesAny(["hello", "hi", "hey", "good morning", "good afternoon", "good evening"])) {
+        return "Hello! I can help with Xcel Hub details, login, registration, password reset, dashboard navigation, and account support guidance.";
+      }
+      if (hasAll(["how", "login"]) || includesAny(["log in", "signin", "sign in", "cannot login", "can't login", "wrong password"])) {
+        return "To log in: enter your username and password in SignIn. If password is wrong, use 'Forgot Password?'. If username does not exist, create an account first.";
+      }
+      if (includesAny(["create account", "register", "sign up", "signup", "new account"])) {
+        return "To register: click 'Create Account', fill Username, Password, Security Question, and Security Answer, then click Sign Up.";
+      }
+      if (includesAny(["forgot password", "reset password", "recover account"])) {
+        return "To reset password: click 'Forgot Password?', enter username, choose your security question, provide answer, set new password, then return to login.";
+      }
+      if (includesAny(["dashboard", "home page", "after login", "where am i"])) {
+        return "After successful login, you are redirected to Dashboard.html. It shows your profile card, quick actions, and chatbot support.";
+      }
+      if (includesAny(["logout", "log out", "sign out"])) {
+        return "Use the 'Log Out' button (Dashboard) or logout link (SignIn app view). This clears your local session and returns you to Sign In.";
+      }
+      if (includesAny(["error", "bug", "not working", "failed", "issue", "problem"])) {
+        return "For troubleshooting: confirm server is running, check browser console, and verify localStorage keys xcelUsers/xcelCurrentUser.";
+      }
+      if (includesAny(["what can you do", "help", "commands"])) {
+        return "I can answer website-related questions: Xcel Hub details, login/register/reset, dashboard usage, logout, and troubleshooting steps.";
+      }
+
+      return "I can help with this website's features. Try asking: 'What is Xcel Hub?', 'How do I login?', 'How to reset password?', 'How do I logout?', or 'How can I contact support?'.";
+    }
+  </script>
+</body>
+</html>

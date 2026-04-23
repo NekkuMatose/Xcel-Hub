@@ -1,0 +1,281 @@
+
+        /* =========================================
+           GLOBAL STYLES & BACKGROUND
+           ========================================= */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6; /* Main page background color */
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Prevents unwanted scrollbars from the marquee */
+        }
+
+        /* Main white box containing the forms */
+        .container {
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 8px; /* How round the corners are */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 450px; /* Maximum width of the form box */
+            position: relative;
+            z-index: 1;
+            transform: translateY(-20px); /* Moved slightly up to balance the new footer */
+        }
+
+        h2 {
+            color: #2c3e50; /* Title text color */
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        p.description {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 25px;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        /* =========================================
+           FORM ELEMENTS (Inputs, Textareas, Selects)
+           ========================================= */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: vertical; /* Allows user to drag the text box taller */
+            height: 80px;
+        }
+
+        /* =========================================
+           BUTTONS
+           ========================================= */
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #27ae60; /* Primary button color (Green) */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #219150; /* Darker green when hovering */
+        }
+
+        .secondary-btn {
+            background-color: #A2CB8B; /* Lighter green for secondary actions */
+        }
+
+        .secondary-btn:hover {
+            background-color: #A2CB8B;
+        }
+
+        /* Links at the bottom of forms (e.g., "Create Account") */
+        .link-text {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .link-text a {
+            color: #3498db; /* Link color (Blue) */
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .link-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Hides sections by default. The 'active' class makes them visible. */
+        .view-section {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+
+        /* =========================================
+           SPONSOR MARQUEE (Scrolling footer)
+           ========================================= */
+        .sponsors-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ffffff;
+            border-top: 1px solid #e0e0e0;
+            padding: 15px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+            white-space: nowrap;
+            z-index: 500;
+        }
+
+        .sponsors-track {
+            display: inline-block;
+            /* Change '25s' to make the scroll faster or slower */
+            animation: scrollLeftToRight 25s linear infinite; 
+        }
+
+        .sponsors-track:hover {
+            animation-play-state: paused; /* Pauses scrolling when mouse hovers over it */
+        }
+
+        .sponsor-logo {
+            display: inline-block;
+            margin: 0 40px; /* Space between sponsor names */
+            font-size: 18px;
+            font-weight: 800;
+            color: #95a5a6;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        @keyframes scrollLeftToRight {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0%); }
+        }
+
+        /* =========================================
+           CHATBOT UI STYLES
+           ========================================= */
+        .chatbot-toggle {
+            position: fixed;
+            bottom: 75px; /* Adjust this to move the chat bubble up or down */
+            right: 30px; /* Adjust this to move it left or right */
+            background-color: #3498db; /* Chat bubble color */
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .chatbot-toggle:hover {
+            transform: scale(1.1);
+            background-color: #5B7E3C; /* Color when hovering over chat bubble */
+        }
+
+        .chat-window {
+            position: fixed;
+            bottom: 145px;
+            right: 30px;
+            width: 320px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1000;
+            border: 1px solid #ddd;
+        }
+
+        .chat-header {
+            background-color: #A2CB8B; /* Chat window top bar color */
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-chat {
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .chat-body {
+            height: 300px;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .chat-message {
+            max-width: 80%;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .bot-message {
+            background-color: #e0e0e0;
+            align-self: flex-start; /* Aligns bot messages to the left */
+            border-bottom-left-radius: 0;
+        }
+
+        .user-message {
+            background-color: #A2CB8B;
+            color: white;
+            align-self: flex-end; /* Aligns your messages to the right */
+            border-bottom-right-radius: 0;
+        }
+
+        .chat-footer {
+            display: flex;
+            border-top: 1px solid #ddd;
+        }
+
+        .chat-footer input {
+            flex-grow: 1;
+            border: none;
+            padding: 12px;
+            outline: none;
+            border-radius: 0;
+        }
+
+        .chat-footer button {
+            width: auto;
+            margin: 0;
+            border-radius: 0;
+            background-color: #A2CB8B;
+            padding: 0 20px;
+        }

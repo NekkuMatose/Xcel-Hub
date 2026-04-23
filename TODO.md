@@ -1,0 +1,5 @@
+- [ ] Add Recent Activities section with icon in Dashboard.html
+- [ ] Implement activity log storage/read utilities in Dashboard.html using localStorage key xcelActivityLogs
+- [ ] Record dashboard access activity and render latest activity list for current user
+- [ ] Update ProfileSettings.html to append account-change activities on successful save
+- [ ] Keep existing features intact (quick-nav warning, logout modal, chatbot) and add empty-state fallback for no activities

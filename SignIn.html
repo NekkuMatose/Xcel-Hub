@@ -1,0 +1,1149 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Xcel Hub Training Services</title>
+        <style>
+        /* =========================================
+    LOGO STYLES
+    ========================================= */
+        .form-logo {
+        display: block;        /* Tells the browser this element gets its own line */
+        margin: 0 auto 20px;   /* Top is 0, Left/Right are Auto (Centers it!), Bottom is 20px */
+        max-width: 150px;      /* Controls how wide the logo gets. Adjust this number! */
+        height: auto;          /* Keeps the image from stretching out of proportion */
+        }
+
+            
+            /* =========================================
+            GLOBAL STYLES & BACKGROUND
+            ========================================= */
+            body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fbff;
+            background-image: url('xcel-hub-bg.png');
+            background-size: cover;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 110px);
+            margin: 0;
+            padding: 16px 0 94px;
+            box-sizing: border-box;
+            overflow-x: hidden;
+    }
+
+            /* Main white box containing the forms */
+            .container {
+                background-color: #ffffff;
+                padding: 30px 40px;
+                border-radius: 8px; /* How round the corners are */
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                width: 100%;
+                max-width: 450px; /* Maximum width of the form box */
+                position: relative;
+                z-index: 1;
+                margin-top: 0;
+                transform: none;
+                animation: signInCardReveal 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+                transform-origin: 50% 60%;
+            }
+
+            h2 {
+                color: #2c3e50; /* Title text color */
+                margin-bottom: 10px;
+                text-align: center;
+            }
+
+            p.description {
+                font-size: 14px;
+                color: #7f8c8d;
+                margin-bottom: 25px;
+                text-align: center;
+                line-height: 1.5;
+            }
+
+            /* =========================================
+            FORM ELEMENTS (Inputs, Textareas, Selects)
+            ========================================= */
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+                font-size: 14px;
+            }
+
+            input[type="text"],
+            input[type="password"],
+            textarea,
+            select {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                font-family: inherit;
+                font-size: 14px;
+                transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+            }
+
+            input[type="text"]:focus,
+            input[type="password"]:focus {
+            border-color: #27ae60; /* Your green button color */
+            outline: none; /* Removes the default browser blue glow */
+            box-shadow: 0 0 5px rgba(39, 174, 96, 0.3); /* Subtle green glow */
+            }
+            
+            textarea {
+                resize: vertical; /* Allows user to drag the text box taller */
+                height: 80px;
+            }
+
+            /* =========================================
+        PASSWORD SHOW/HIDE TOGGLE
+        ========================================= */
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-wrapper input {
+            padding-right: 45px; /* Makes room for the eye icon */
+        }
+
+            .toggle-password {
+                position: absolute;
+                right: 12px;
+                top: 50%;
+                transform: translateY(-50%);
+                cursor: pointer;
+                font-size: 18px;
+                color: #7f8c8d;
+                user-select: none;
+                transition: color 0.2s;
+            }
+
+            .toggle-password:hover {
+                color: #27ae60;
+            }
+
+
+            /* =========================================
+            BUTTONS
+            ========================================= */
+            button {
+                width: 100%;
+                padding: 12px;
+                background-color: #27ae60; /* Primary button color (Green) */
+                color: white;
+                border: none;
+                border-radius: 4px;
+                font-size: 16px;
+                cursor: pointer;
+                font-weight: bold;
+                margin-top: 10px;
+                transition: background-color 0.3s, transform 0.2s ease, box-shadow 0.25s ease;
+            }
+
+            button:hover {
+                background-color: #219150; /* Darker green when hovering */
+                transform: translateY(-1px);
+                box-shadow: 0 8px 16px rgba(33, 145, 80, 0.2);
+            }
+
+            .secondary-btn {
+                background-color: #219150; /* Lighter green for secondary actions */
+            }
+
+            .secondary-btn:hover {
+                background-color: #219150;
+            }
+
+            /* Links at the bottom of forms (e.g., "Create Account") */
+            .link-text {
+                text-align: center;
+                margin-top: 15px;
+                font-size: 14px;
+            }
+
+            .link-text a {
+                color: #35858E; /* Link color (Blue) */
+                text-decoration: none;
+                cursor: pointer;
+                font-weight: bold;
+            }
+
+            .link-text a:hover {
+                text-decoration: underline;
+            }
+
+            .capslock-warning {
+                display: none;
+                margin-top: 6px;
+                font-size: 12px;
+                font-weight: 700;
+                color: #c0392b;
+                letter-spacing: 0.2px;
+            }
+
+            .capslock-warning.show {
+                display: block;
+            }
+
+            /* Hides sections by default. The 'active' class makes them visible. */
+            .view-section {
+                display: none;
+                opacity: 0;
+                transform: translateY(10px) scale(0.99);
+            }
+            .active {
+                display: block;
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            .view-section.view-enter {
+                animation: sectionEnter 0.45s ease forwards;
+            }
+
+            .view-section.view-exit {
+                animation: sectionExit 0.3s ease forwards;
+            }
+
+            /* =========================================
+            SPONSOR MARQUEE (Scrolling footer)
+            ========================================= */
+            .sponsors-footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background-color: #ffffff;
+                border-top: 1px solid #e0e0e0;
+                padding: 15px 0;
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+                overflow: hidden;
+                white-space: nowrap;
+                z-index: 500;
+            }
+
+            .sponsors-track {
+                display: inline-block;
+                /* Change '25s' to make the scroll faster or slower */
+                animation: scrollLeftToRight 25s linear infinite; 
+            }
+
+            .sponsors-track:hover {
+                animation-play-state: paused; /* Pauses scrolling when mouse hovers over it */
+            }
+
+            .sponsor-logo {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 34px; /* Space between sponsor logos */
+                width: 140px;
+                height: 42px;
+            }
+
+        .sponsor-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            opacity: 0.78;
+            transition: opacity 0.3s ease, transform 0.25s ease, filter 0.3s ease;
+            filter: grayscale(100%); /* Makes colored logos gray */
+            vertical-align: middle; /* Perfectly centers the image next to any text */
+            }   
+
+            .sponsor-logo img:hover {
+            opacity: 1;
+            filter: grayscale(0%);
+            transform: translateY(-1px);
+            }
+
+            .sponsor-logo img.sponsor-logo-google,
+            .sponsor-logo img.sponsor-logo-godaddy {
+                transform: scale(1.14);
+                transform-origin: center;
+            }
+
+            .sponsor-logo img.sponsor-logo-google:hover,
+            .sponsor-logo img.sponsor-logo-godaddy:hover {
+                transform: scale(1.14) translateY(-1px);
+            }
+
+
+            @keyframes scrollLeftToRight {
+                0% { transform: translateX(-50%); }
+                100% { transform: translateX(0%); }
+            }
+
+            /* =========================================
+            CHATBOT UI STYLES
+            ========================================= */
+            .chatbot-toggle {
+                position: fixed;
+                bottom: 75px; /* Adjust this to move the chat bubble up or down */
+                right: 30px; /* Adjust this to move it left or right */
+                background-color: #35858E; /* Chat bubble color */
+                color: white;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 24px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+                cursor: pointer;
+                z-index: 1000;
+                transition: transform 0.3s, background-color 0.3s;
+            }
+
+            .chatbot-toggle:hover {
+                transform: scale(1.1);
+                background-color: #5B7E3C; /* Color when hovering over chat bubble */
+            }
+
+            .chat-window {
+                position: fixed;
+                bottom: 145px;
+                right: 30px;
+                width: 320px;
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                display: none; /* Hidden by default */
+                flex-direction: column;
+                overflow: hidden;
+                z-index: 1000;
+                border: 1px solid #ddd;
+            }
+
+            .chat-header {
+                background-color: #A2CB8B; /* Chat window top bar color */
+                color: white;
+                padding: 15px;
+                font-weight: bold;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .close-chat {
+                cursor: pointer;
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+            .chat-body {
+                height: 300px;
+                padding: 15px;
+                overflow-y: auto;
+                background-color: #f9f9f9;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .chat-message {
+                max-width: 80%;
+                padding: 10px;
+                border-radius: 8px;
+                font-size: 14px;
+                line-height: 1.4;
+            }
+
+            .bot-message {
+                background-color: #e0e0e0;
+                align-self: flex-start; /* Aligns bot messages to the left */
+                border-bottom-left-radius: 0;
+            }
+
+            .user-message {
+                background-color: #A2CB8B;
+                color: white;
+                align-self: flex-end; /* Aligns your messages to the right */
+                border-bottom-right-radius: 0;
+            }
+
+            .chat-footer {
+                display: flex;
+                border-top: 1px solid #ddd;
+            }
+
+            .chat-footer input {
+                flex-grow: 1;
+                border: none;
+                padding: 12px;
+                outline: none;
+                border-radius: 0;
+            }
+
+            .chat-footer button {
+                width: auto;
+                margin: 0;
+                border-radius: 0;
+                background-color: #A2CB8B;
+                padding: 0 20px;
+            }
+
+            /* Unique Login Animation */
+            #loginSubmitBtn {
+                position: relative;
+                overflow: hidden;
+            }
+
+            #loginSubmitBtn.login-animating {
+                pointer-events: none;
+                animation: loginPulse 0.9s ease-in-out;
+            }
+
+            #loginSubmitBtn.login-animating::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(circle, rgba(255,255,255,0.55) 10%, rgba(255,255,255,0) 65%);
+                transform: scale(0);
+                animation: loginRipple 0.9s ease-out forwards;
+            }
+
+            .login-success-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(19, 44, 34, 0.35);
+                display: none;
+                justify-content: center;
+                align-items: center;
+                z-index: 1500;
+                backdrop-filter: blur(2px);
+            }
+
+            .login-success-overlay.show {
+                display: flex;
+            }
+
+            .no-account-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(70, 20, 20, 0.3);
+                display: none;
+                justify-content: center;
+                align-items: center;
+                z-index: 1550;
+                backdrop-filter: blur(2px);
+            }
+
+            .no-account-overlay.show {
+                display: flex;
+            }
+
+            .no-account-badge {
+                background: #fff7f7;
+                color: #a32323;
+                border: 1px solid #f4c1c1;
+                border-radius: 16px;
+                padding: 16px 22px;
+                font-weight: 800;
+                box-shadow: 0 14px 30px rgba(0,0,0,0.18);
+                animation: noAccountPop 0.65s cubic-bezier(0.2, 0.9, 0.2, 1), noAccountShake 0.55s ease 0.2s;
+            }
+
+            .login-success-badge {
+                background: #ffffff;
+                color: #256c45;
+                border: 1px solid #d8ece0;
+                border-radius: 16px;
+                padding: 18px 24px;
+                font-weight: 700;
+                box-shadow: 0 14px 30px rgba(0,0,0,0.15);
+                animation: loginBadgePop 0.55s cubic-bezier(0.2, 0.9, 0.2, 1);
+            }
+
+            @keyframes signInCardReveal {
+                0% {
+                    opacity: 0;
+                    transform: translateY(22px) scale(0.97) rotateX(6deg);
+                    filter: blur(2px);
+                }
+                60% {
+                    opacity: 1;
+                    transform: translateY(-4px) scale(1.01) rotateX(0deg);
+                    filter: blur(0);
+                }
+                100% {
+                    opacity: 1;
+                    transform: translateY(0) scale(1) rotateX(0deg);
+                    filter: blur(0);
+                }
+            }
+
+            @keyframes sectionEnter {
+                from { opacity: 0; transform: translateY(10px) scale(0.99); }
+                to { opacity: 1; transform: translateY(0) scale(1); }
+            }
+
+            @keyframes sectionExit {
+                from { opacity: 1; transform: translateY(0) scale(1); }
+                to { opacity: 0; transform: translateY(-8px) scale(0.995); }
+            }
+
+            @keyframes noAccountPop {
+                0% { opacity: 0; transform: translateY(10px) scale(0.9); }
+                70% { opacity: 1; transform: translateY(0) scale(1.05); }
+                100% { opacity: 1; transform: translateY(0) scale(1); }
+            }
+
+            @keyframes noAccountShake {
+                0% { transform: translateX(0); }
+                25% { transform: translateX(-5px); }
+                50% { transform: translateX(5px); }
+                75% { transform: translateX(-3px); }
+                100% { transform: translateX(0); }
+            }
+
+            @keyframes loginPulse {
+                0% { transform: scale(1); }
+                35% { transform: scale(1.04); }
+                70% { transform: scale(0.98); }
+                100% { transform: scale(1); }
+            }
+
+            @keyframes loginRipple {
+                from { transform: scale(0); opacity: 0.9; }
+                to { transform: scale(2.2); opacity: 0; }
+            }
+
+            @keyframes loginBadgePop {
+                0% { opacity: 0; transform: translateY(8px) scale(0.9) rotate(-2deg); }
+                70% { opacity: 1; transform: translateY(0) scale(1.04) rotate(1deg); }
+                100% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+            }
+
+            /* Create Account Success Animation */
+            #registerSubmitBtn.register-animating {
+                pointer-events: none;
+                animation: registerGlow 0.95s ease;
+                box-shadow: 0 0 0 0 rgba(46, 139, 87, 0.65);
+            }
+
+            @keyframes registerGlow {
+                0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(46, 139, 87, 0.65); }
+                45% { transform: scale(1.03); box-shadow: 0 0 0 14px rgba(46, 139, 87, 0); }
+                100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(46, 139, 87, 0); }
+            }
+
+            /* Forgot Password Success Animation */
+            #forgotSubmitBtn.forgot-animating {
+                pointer-events: none;
+                animation: forgotShield 0.95s ease;
+            }
+
+            @keyframes forgotShield {
+                0% { transform: translateY(0) scale(1); }
+                30% { transform: translateY(-2px) scale(1.04); }
+                60% { transform: translateY(0) scale(0.98); }
+                100% { transform: translateY(0) scale(1); }
+            }
+
+            .action-success-toast {
+                position: fixed;
+                top: 28px;
+                left: 50%;
+                transform: translateX(-50%) translateY(-14px);
+                background: #1f7a4f;
+                color: #fff;
+                padding: 10px 16px;
+                border-radius: 999px;
+                font-size: 14px;
+                font-weight: 700;
+                box-shadow: 0 10px 22px rgba(0,0,0,0.16);
+                opacity: 0;
+                pointer-events: none;
+                z-index: 1600;
+            }
+
+            .action-success-toast.show {
+                animation: toastDrop 1.2s ease forwards;
+            }
+
+            @keyframes toastDrop {
+                0% { opacity: 0; transform: translateX(-50%) translateY(-14px) scale(0.95); }
+                20% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+                75% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+                100% { opacity: 0; transform: translateX(-50%) translateY(-8px) scale(0.98); }
+            }
+                
+        </style>
+    </head>
+    <body>
+
+    <div class="container">
+        <a href="Landing.html"><img src="xcel-hub-logo.png" class="form-logo" alt="Description of the image">
+        </a>
+
+        <div id="loginView" class="view-section active">
+            <p class="description">Please log in to access the portal.</p>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginUser">Username</label>
+                    <input type="text" id="loginUser" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPass">Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="loginPass" required>
+                        <span class="toggle-password" onclick="togglePassword('loginPass', this)">👁️</span>
+                    </div>
+                    <div class="capslock-warning" id="capsLockWarning">⚠️ Caps Lock is ON</div>
+                </div>
+                <button type="submit" id="loginSubmitBtn">Log In</button>
+            </form>
+            <div class="link-text">
+                <a onclick="switchView('registerView')">Create Account</a> | 
+                <a onclick="switchView('forgotView')">Forgot Password?</a>
+            </div>
+        </div>
+
+        <div id="notify" style="display:none;"></div>
+
+        <div id="registerView" class="view-section">
+            <p class="description">Register a new user account.</p>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="regUser">Username</label>
+                    <input type="text" id="regUser" required>
+                </div>
+                <div class="form-group">
+                    <label for="regPass">Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="regPass" required>
+                        <span class="toggle-password" onclick="togglePassword('regPass', this)">👁️</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="regQuestion">Security Question</label>
+                    <select id="regQuestion" required>
+                        <option value="" disabled selected>Select a security question...</option>
+                        <option value="pet">What is your childhood pet's name?</option>
+                        <option value="city">What city were you born in?</option>
+                        <option value="mother">What is your mother's maiden name?</option>
+                        <option value="school">What was the name of your first school?</option>
+                        <option value="custom">Custom question...</option>
+                    </select>
+                </div>
+                <div class="form-group" id="regCustomQuestionGroup" style="display: none;">
+                    <label for="regCustomQuestion">Custom Security Question</label>
+                    <input type="text" id="regCustomQuestion" placeholder="Type your custom security question">
+                </div>
+                <div class="form-group">
+                    <label for="regAnswer">Security Answer</label>
+                    <input type="text" id="regAnswer" required>
+                </div>
+                <button type="submit" class="secondary-btn" id="registerSubmitBtn">Sign Up</button>
+            </form>
+            <div class="link-text">
+                <a onclick="switchView('loginView')">Back to Login</a>
+            </div>
+        </div>
+
+        <div id="forgotView" class="view-section">
+    <p class="description">Answer your security question to reset your password.</p>
+    <form id="forgotForm">
+        <div class="form-group">
+            <label for="forgotUser">Username</label>
+            <input type="text" id="forgotUser" required>
+        </div>
+        <div class="form-group">
+            <label for="forgotQuestion">Security Question</label>
+            <select id="forgotQuestion" required>
+                <option value="" disabled selected>Select your security question...</option>
+                <option value="pet">What is your childhood pet's name?</option>
+                <option value="city">What city were you born in?</option>
+                <option value="mother">What is your mother's maiden name?</option>
+                <option value="school">What was the name of your first school?</option>
+                <option value="custom">Custom question...</option>
+            </select>
+        </div>
+        <div class="form-group" id="forgotCustomQuestionGroup" style="display: none;">
+            <label for="forgotCustomQuestion">Custom Security Question</label>
+            <input type="text" id="forgotCustomQuestion" placeholder="Type your custom security question">
+        </div>
+        <div class="form-group">
+            <label for="forgotAnswer">Security Answer</label>
+            <input type="text" id="forgotAnswer" required>
+        </div>
+        <div class="form-group">
+            <label for="forgotNewPass">New Password</label>
+            <div class="password-wrapper">
+                <input type="password" id="forgotNewPass" required>
+                <span class="toggle-password" onclick="togglePassword('forgotNewPass', this)">👁️</span>
+            </div>
+        </div>
+        <button type="submit" class="secondary-btn" id="forgotSubmitBtn">Reset Password</button>
+    </form>
+    <div class="link-text">
+        <a onclick="switchView('loginView')">Back to Login</a>
+    </div>
+</div>
+
+        <div id="appView" class="view-section">
+            <p class="description" id="welcomeMessage"><strong>System Description:</strong> Enter company details and expected training output to log your session.</p>
+            <form id="xcelForm">
+                <div class="form-group">
+                    <label for="company">Company Name</label>
+                    <input type="text" id="company" required>
+                </div>
+                <div class="form-group">
+                    <label for="expectedOutput">Expected Output</label>
+                    <textarea id="expectedOutput" placeholder="Describe the expected training outcomes..." required></textarea>
+                </div>
+                <button type="submit">Back (CSV)</button>
+            </form>
+            <div class="link-text">
+                <a onclick="logout()">Log Out</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="sponsors-footer">
+        <div class="sponsors-track">
+
+            <span class="sponsor-logo"><img src="microsoft-logo.png" alt="Microsoft logo"></span>
+            <span class="sponsor-logo"><img src="google-logo.png" alt="Google logo" class="sponsor-logo-google"></span>
+            <span class="sponsor-logo"><img src="GoDaddy-logo.png" alt="GoDaddy logo" class="sponsor-logo-godaddy"></span>
+            <span class="sponsor-logo"><img src="Visa-logo.png" alt="Visa logo"></span>
+            <span class="sponsor-logo"><img src="Amazon-logo.png" alt="Amazon logo"></span>
+            <span class="sponsor-logo"><img src="IBM-logo.png" alt="IBM logo"></span>
+            <span class="sponsor-logo"><img src="Oracle-logo.png" alt="Oracle logo"></span>
+            <span class="sponsor-logo"><img src="Cisco-logo.png" alt="Cisco logo"></span>
+            <span class="sponsor-logo"><img src="intel-logo.png" alt="Intel logo"></span>
+            
+            <span class="sponsor-logo"><img src="microsoft-logo.png" alt="Microsoft logo"></span>
+            <span class="sponsor-logo"><img src="google-logo.png" alt="Google logo" class="sponsor-logo-google"></span>
+            <span class="sponsor-logo"><img src="GoDaddy-logo.png" alt="GoDaddy logo" class="sponsor-logo-godaddy"></span>
+            <span class="sponsor-logo"><img src="Visa-logo.png" alt="Visa logo"></span>
+            <span class="sponsor-logo"><img src="Amazon-logo.png" alt="Amazon logo"></span>
+            <span class="sponsor-logo"><img src="IBM-logo.png" alt="IBM logo"></span>
+            <span class="sponsor-logo"><img src="Oracle-logo.png" alt="Oracle logo"></span>
+            <span class="sponsor-logo"><img src="Cisco-logo.png" alt="Cisco logo"></span>
+            <span class="sponsor-logo"><img src="intel-logo.png" alt="Intel logo"></span>
+        </div>
+    </div>
+
+    <div class="login-success-overlay" id="loginSuccessOverlay">
+        <div class="login-success-badge">Login successful... Loading your dashboard</div>
+    </div>
+
+    <div class="no-account-overlay" id="noAccountOverlay">
+        <div class="no-account-badge">❌ No account found. Redirecting you to Create Account...</div>
+    </div>
+
+    <div class="action-success-toast" id="actionToast"></div>
+
+    <div class="chatbot-toggle" onclick="toggleChat()">💬</div>
+
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            Xcel Support Bot
+            <span class="close-chat" onclick="toggleChat()">✖</span>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="chat-message bot-message">Hello! I can help you with the Xcel Hub system or answer general simple questions. Try me!</div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chatInput" placeholder="Type a message..." onkeypress="handleEnter(event)">
+            <button onclick="sendChatMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = "";
+
+        // Function to switch between login, register, and app views
+        function switchView(viewId) {
+            const currentSection = document.querySelector('.view-section.active');
+            const targetSection = document.getElementById(viewId);
+
+            if (!targetSection || currentSection === targetSection) {
+                return;
+            }
+
+            if (currentSection) {
+                currentSection.classList.remove('view-enter');
+                currentSection.classList.add('view-exit');
+
+                setTimeout(() => {
+                    currentSection.classList.remove('active', 'view-exit');
+                    targetSection.classList.add('active', 'view-enter');
+
+                    setTimeout(() => {
+                        targetSection.classList.remove('view-enter');
+                    }, 460);
+                }, 300);
+            } else {
+                targetSection.classList.add('active', 'view-enter');
+                setTimeout(() => targetSection.classList.remove('view-enter'), 460);
+            }
+
+            document.querySelectorAll('form').forEach(form => form.reset());
+            toggleCustomQuestionInput(regQuestionSelect, regCustomQuestionGroup, regCustomQuestionInput);
+            toggleCustomQuestionInput(forgotQuestionSelect, forgotCustomQuestionGroup, forgotCustomQuestionInput);
+        }
+
+        // Initialize LocalStorage for user database if it doesn't exist
+        if (!localStorage.getItem("xcelUsers")) {
+            localStorage.setItem("xcelUsers", JSON.stringify({}));
+        }
+
+        function showActionToast(message) {
+            const toast = document.getElementById('actionToast');
+            toast.textContent = message;
+            toast.classList.remove('show');
+            void toast.offsetWidth;
+            toast.classList.add('show');
+        }
+
+        const regQuestionSelect = document.getElementById('regQuestion');
+        const forgotQuestionSelect = document.getElementById('forgotQuestion');
+        const regCustomQuestionGroup = document.getElementById('regCustomQuestionGroup');
+        const forgotCustomQuestionGroup = document.getElementById('forgotCustomQuestionGroup');
+        const regCustomQuestionInput = document.getElementById('regCustomQuestion');
+        const forgotCustomQuestionInput = document.getElementById('forgotCustomQuestion');
+
+        function toggleCustomQuestionInput(selectEl, groupEl, inputEl) {
+            const isCustom = selectEl.value === 'custom';
+            groupEl.style.display = isCustom ? 'block' : 'none';
+            inputEl.required = isCustom;
+            if (!isCustom) {
+                inputEl.value = '';
+            }
+        }
+
+        regQuestionSelect.addEventListener('change', () => {
+            toggleCustomQuestionInput(regQuestionSelect, regCustomQuestionGroup, regCustomQuestionInput);
+        });
+
+        forgotQuestionSelect.addEventListener('change', () => {
+            toggleCustomQuestionInput(forgotQuestionSelect, forgotCustomQuestionGroup, forgotCustomQuestionInput);
+        });
+
+        // --- REGISTRATION LOGIC ---
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const user = document.getElementById('regUser').value.trim();
+            const pass = document.getElementById('regPass').value;
+            const question = document.getElementById('regQuestion').value;
+            const customQuestion = document.getElementById('regCustomQuestion').value.trim();
+            const answer = document.getElementById('regAnswer').value.trim().toLowerCase();
+
+            let usersDB = JSON.parse(localStorage.getItem("xcelUsers"));
+
+            if (question === 'custom' && !customQuestion) {
+                alert("Please enter your custom security question.");
+                return;
+            }
+
+            if (usersDB[user]) {
+                alert("Username already exists. Please choose another.");
+                return;
+            }
+
+            const finalQuestion = question === 'custom' ? customQuestion : question;
+
+            // Save new user to the browser's local storage
+            usersDB[user] = { password: pass, securityQuestion: finalQuestion, securityAnswer: answer };
+            localStorage.setItem("xcelUsers", JSON.stringify(usersDB));
+            
+            const registerBtn = document.getElementById('registerSubmitBtn');
+            registerBtn.classList.add('register-animating');
+            showActionToast("✅ Account created successfully!");
+
+            setTimeout(() => {
+                registerBtn.classList.remove('register-animating');
+                switchView('loginView');
+            }, 950);
+        });
+
+        const loginUserInput = document.getElementById('loginUser');
+        const loginPassInput = document.getElementById('loginPass');
+        const capsLockWarning = document.getElementById('capsLockWarning');
+
+        function updateCapsLockWarning(event) {
+            if (event && event.getModifierState && event.getModifierState('CapsLock')) {
+                capsLockWarning.classList.add('show');
+            } else {
+                capsLockWarning.classList.remove('show');
+            }
+        }
+
+        loginUserInput.addEventListener('keydown', updateCapsLockWarning);
+        loginUserInput.addEventListener('keyup', updateCapsLockWarning);
+        loginPassInput.addEventListener('keydown', updateCapsLockWarning);
+        loginPassInput.addEventListener('keyup', updateCapsLockWarning);
+        loginPassInput.addEventListener('blur', () => capsLockWarning.classList.remove('show'));
+        loginUserInput.addEventListener('blur', () => capsLockWarning.classList.remove('show'));
+
+        function showNoAccountAnimation(onDone) {
+            const overlay = document.getElementById('noAccountOverlay');
+            overlay.classList.add('show');
+
+            setTimeout(() => {
+                overlay.classList.remove('show');
+                if (typeof onDone === 'function') {
+                    onDone();
+                }
+            }, 1200);
+        }
+
+        // --- LOGIN LOGIC ---
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const user = document.getElementById('loginUser').value.trim();
+        const pass = document.getElementById('loginPass').value;
+        const loginBtn = document.getElementById('loginSubmitBtn');
+        const loginOverlay = document.getElementById('loginSuccessOverlay');
+
+        let usersDB = JSON.parse(localStorage.getItem("xcelUsers"));
+
+        if (usersDB[user]) {
+            // Username exists
+            if (usersDB[user].password === pass) {
+                // ✅ Correct password
+                currentUser = user;
+                localStorage.setItem('xcelCurrentUser', currentUser);
+
+                loginBtn.classList.add('login-animating');
+                loginOverlay.classList.add('show');
+
+                setTimeout(() => {
+                    window.location.href = 'Dashboard.html';
+                }, 900);
+            } else {
+                // ❌ Wrong password
+                alert("⚠️ Account found, but the password is incorrect.");
+            }
+        } else {
+            // ❌ Username does NOT exist
+            showNoAccountAnimation(() => {
+                switchView('registerView');
+
+                // Optional UX enhancement: pre-fill username
+                document.getElementById('regUser').value = user;
+            });
+        }
+        });
+
+        // --- FORGOT PASSWORD LOGIC ---
+        document.getElementById('forgotForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const user = document.getElementById('forgotUser').value.trim();
+            const question = document.getElementById('forgotQuestion').value;
+            const customQuestion = document.getElementById('forgotCustomQuestion').value.trim();
+            const answer = document.getElementById('forgotAnswer').value.trim().toLowerCase();
+            const newPass = document.getElementById('forgotNewPass').value;
+
+            let usersDB = JSON.parse(localStorage.getItem("xcelUsers"));
+
+            const enteredQuestion = question === 'custom' ? customQuestion : question;
+
+            if (question === 'custom' && !customQuestion) {
+                alert("Please enter your custom security question.");
+                return;
+            }
+
+            if (usersDB[user]) {
+                const savedQuestion = String(usersDB[user].securityQuestion || "").trim().toLowerCase();
+                const incomingQuestion = String(enteredQuestion || "").trim().toLowerCase();
+                if (savedQuestion === incomingQuestion && usersDB[user].securityAnswer === answer) {
+                    usersDB[user].password = newPass;
+                    localStorage.setItem("xcelUsers", JSON.stringify(usersDB));
+                    const forgotBtn = document.getElementById('forgotSubmitBtn');
+                    forgotBtn.classList.add('forgot-animating');
+                    showActionToast("🔐 Password reset successful!");
+
+                    setTimeout(() => {
+                        forgotBtn.classList.remove('forgot-animating');
+                        switchView('loginView');
+                    }, 950);
+                } else {
+                    alert("Incorrect security question or answer.");
+                }
+            } else {
+                alert("Username not found.");
+            }
+        });
+
+        // --- SAVE TO EXCEL (CSV EXPORT) LOGIC ---
+        document.getElementById('xcelForm').addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            
+            const company = document.getElementById('company').value;
+            // Clean up line breaks in the text area so it doesn't break the CSV format
+            const expectedOutput = document.getElementById('expectedOutput').value.replace(/(\r\n|\n|\r)/gm, " ");
+
+            // Set up the CSV formatting
+            const csvHeaders = "Username,Company Name,Expected Output\n";
+            const csvRow = `"${currentUser}","${company}","${expectedOutput}"\n`;
+            const csvContent = csvHeaders + csvRow;
+
+            // Trigger the download of the file
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", `XcelHub_${company}_Record.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            document.getElementById('xcelForm').reset();
+            alert("Data saved! Check your downloads folder.");
+        });
+
+        function logout() {
+            currentUser = "";
+            switchView('loginView');
+        }
+
+        function togglePassword(inputId, toggleBtn) {
+        const input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+                toggleBtn.textContent = "🙈";
+            } else {
+                input.type = "password";
+                toggleBtn.textContent = "👁️";
+            }
+        }
+
+
+        // =========================================
+        // CHATBOT LOGIC
+        // =========================================
+        
+        // Opens and closes the chat window
+        function toggleChat() {
+            const chatWindow = document.getElementById('chatWindow');
+            const currentStyle = window.getComputedStyle(chatWindow).display;
+            
+            if (currentStyle === 'none') {
+                chatWindow.style.display = 'flex';
+            } else {
+                chatWindow.style.display = 'none';
+            }
+        }
+
+        // Allows user to press "Enter" to send a message
+        function handleEnter(event) {
+            if (event.key === "Enter") sendChatMessage();
+        }
+
+        // Handles the sending of a message
+        function sendChatMessage() {
+            const inputField = document.getElementById('chatInput');
+            const messageText = inputField.value.trim();
+            if (messageText === "") return;
+
+            addMessageToChat("user-message", messageText);
+            inputField.value = "";
+
+            // Wait half a second, then make the bot reply
+            setTimeout(() => {
+                const botReply = generateBotResponse(messageText.toLowerCase());
+                addMessageToChat("bot-message", botReply);
+            }, 500);
+        }
+
+        // Creates the visual message bubbles in the chat
+        function addMessageToChat(className, text) {
+            const chatBody = document.getElementById('chatBody');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${className}`;
+            messageDiv.innerText = text;
+            chatBody.appendChild(messageDiv);
+            chatBody.scrollTop = chatBody.scrollHeight; // Auto-scroll to bottom
+        }
+
+        // Determines what the bot says
+        function generateBotResponse(input) {
+            const normalized = String(input || "").toLowerCase().replace(/[^\w\s]/g, " ").replace(/\s+/g, " ").trim();
+
+            const includesAny = (arr) => arr.some(word => normalized.includes(word));
+            const hasAll = (arr) => arr.every(word => normalized.includes(word));
+
+            if (/^[0-9\s\+\-\*\/\(\)\.]+$/.test(normalized)) {
+                try {
+                    return `That equals: ${eval(normalized)}`;
+                } catch (e) {
+                    return "I couldn't calculate that. Please send a simple math expression like 25*4 or (8+2)/5.";
+                }
+            }
+
+            if (includesAny(["what is xcel hub", "about xcel hub", "who is xcel hub", "who are xcel hub"])) {
+                return "Xcel Hub is a training-services portal used for account access, session tracking, and training record workflows. In this system, users can register, sign in, manage account settings, and export training records.";
+            }
+
+            if (includesAny(["mission", "vision", "goal", "goals", "purpose of xcel hub"])) {
+                return "Xcel Hub's goal in this platform is to support structured learning workflows by making user access, session tracking, and output documentation simple, secure, and consistent.";
+            }
+
+            if (includesAny(["services", "what do you offer", "training services", "features of xcel hub"])) {
+                return "Xcel Hub provides user registration/login, password recovery, dashboard access, account settings, and chatbot guidance for training workflows.";
+            }
+
+            if (includesAny(["company background", "company overview", "about the company", "xcel hub details"])) {
+                return "Within this application context, Xcel Hub is presented as a training services system focused on managing trainee access, session workflows, and record output. For official corporate profile details, consult your organization admin documentation.";
+            }
+
+            if (includesAny(["contact", "support", "help desk", "administrator", "admin"])) {
+                return "For support in this system, contact your assigned Xcel Hub administrator or training coordinator. You can also ask me about login, account recovery, dashboard usage, and account support.";
+            }
+
+            if (includesAny(["hello", "hi", "hey", "good morning", "good afternoon", "good evening"])) {
+                return "Hello! I can help with Xcel Hub details, login, registration, password reset, dashboard navigation, and account support guidance.";
+            }
+
+            if (hasAll(["how", "login"]) || includesAny(["log in", "signin", "sign in", "cannot login", "can't login", "wrong password"])) {
+                return "To log in: enter your username and password in SignIn. If password is wrong, use 'Forgot Password?'. If username does not exist, create an account first.";
+            }
+
+            if (includesAny(["create account", "register", "sign up", "signup", "new account"])) {
+                return "To register: click 'Create Account', fill Username, Password, Security Question, and Security Answer, then click Sign Up.";
+            }
+
+            if (includesAny(["forgot password", "reset password", "recover account"])) {
+                return "To reset password: click 'Forgot Password?', enter username, choose your security question, provide answer, set new password, then return to login.";
+            }
+
+            if (includesAny(["dashboard", "home page", "after login", "where am i"])) {
+                return "After successful login, you are redirected to Dashboard.html. It shows your profile card, quick actions, and chatbot support.";
+            }
+
+            if (includesAny(["logout", "log out", "sign out"])) {
+                return "Use the 'Log Out' button (Dashboard) or logout link (SignIn app view). This clears your local session and returns you to Sign In.";
+            }
+
+
+            if (includesAny(["error", "bug", "not working", "failed", "issue", "problem"])) {
+                return "For troubleshooting: (1) confirm server is running, (2) check browser console for script errors, (3) verify localStorage keys xcelUsers/xcelCurrentUser, (4) test endpoint directly from terminal.";
+            }
+
+            if (includesAny(["what can you do", "help", "commands"])) {
+                return "I can answer website-related questions: Xcel Hub details, login/register/reset, dashboard usage, logout, and troubleshooting steps.";
+            }
+
+            return "I can help with this website's features. Try asking: 'What is Xcel Hub?', 'How do I login?', 'How to reset password?', 'How do I logout?', or 'How can I contact support?'.";
+        }
+    </script>
+
+    </body>
+    </html>
