@@ -20,6 +20,11 @@
             GLOBAL STYLES & BACKGROUND
             ========================================= */
             body {
+            --top-safe-space: clamp(16px, 4vh, 36px);
+            --footer-height: 74px;
+            --bottom-safe-space: clamp(16px, 4vh, 36px);
+            --available-height: calc(100dvh - var(--footer-height) - var(--bottom-safe-space) - var(--top-safe-space));
+
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f8fbff;
             background-image: url('xcel-hub-bg.png');
@@ -28,9 +33,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: calc(100vh - 110px);
+            min-height: 100dvh;
             margin: 0;
-            padding: 16px 0 94px;
+            padding: var(--top-safe-space) 16px calc(var(--footer-height) + var(--bottom-safe-space));
             box-sizing: border-box;
             overflow-x: hidden;
     }
@@ -41,14 +46,17 @@
                 padding: 30px 40px;
                 border-radius: 8px; /* How round the corners are */
                 box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-                width: 100%;
+                width: min(100%, 450px);
                 max-width: 450px; /* Maximum width of the form box */
                 position: relative;
                 z-index: 1;
                 margin-top: 0;
+                margin-bottom: 0;
                 transform: none;
                 animation: signInCardReveal 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
                 transform-origin: 50% 60%;
+                max-height: var(--available-height);
+                overflow-y: auto;
             }
 
             h2 {
@@ -268,14 +276,16 @@
             }
 
             .sponsor-logo img.sponsor-logo-google,
-            .sponsor-logo img.sponsor-logo-godaddy {
-                transform: scale(1.14);
+            .sponsor-logo img.sponsor-logo-godaddy,
+            .sponsor-logo img.sponsor-logo-visa {
+                transform: scale(1.5);
                 transform-origin: center;
             }
 
             .sponsor-logo img.sponsor-logo-google:hover,
-            .sponsor-logo img.sponsor-logo-godaddy:hover {
-                transform: scale(1.14) translateY(-1px);
+            .sponsor-logo img.sponsor-logo-godaddy:hover,
+            .sponsor-logo img.sponsor-logo-visa:hover {
+                transform: scale(1.5) translateY(-1px);
             }
 
 
@@ -289,9 +299,9 @@
             ========================================= */
             .chatbot-toggle {
                 position: fixed;
-                bottom: 75px; /* Adjust this to move the chat bubble up or down */
-                right: 30px; /* Adjust this to move it left or right */
-                background-color: #35858E; /* Chat bubble color */
+                bottom: 75px;
+                right: 30px;
+                background-color: #22c55e;
                 color: white;
                 width: 60px;
                 height: 60px;
@@ -300,7 +310,7 @@
                 justify-content: center;
                 align-items: center;
                 font-size: 24px;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
                 cursor: pointer;
                 z-index: 1000;
                 transition: transform 0.3s, background-color 0.3s;
@@ -308,7 +318,7 @@
 
             .chatbot-toggle:hover {
                 transform: scale(1.1);
-                background-color: #5B7E3C; /* Color when hovering over chat bubble */
+                background-color: #16a34a;
             }
 
             .chat-window {
@@ -327,7 +337,7 @@
             }
 
             .chat-header {
-                background-color: #A2CB8B; /* Chat window top bar color */
+                background-color: #22c55e;
                 color: white;
                 padding: 15px;
                 font-weight: bold;
@@ -361,15 +371,16 @@
             }
 
             .bot-message {
-                background-color: #e0e0e0;
-                align-self: flex-start; /* Aligns bot messages to the left */
+                background-color: #dcfce7;
+                align-self: flex-start;
                 border-bottom-left-radius: 0;
+                color: #166534;
             }
 
             .user-message {
-                background-color: #A2CB8B;
+                background-color: #22c55e;
                 color: white;
-                align-self: flex-end; /* Aligns your messages to the right */
+                align-self: flex-end;
                 border-bottom-right-radius: 0;
             }
 
@@ -390,7 +401,7 @@
                 width: auto;
                 margin: 0;
                 border-radius: 0;
-                background-color: #A2CB8B;
+                background-color: #22c55e;
                 padding: 0 20px;
             }
 
@@ -579,13 +590,56 @@
                 75% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
                 100% { opacity: 0; transform: translateX(-50%) translateY(-8px) scale(0.98); }
             }
+
+            @media (max-width: 768px) {
+                body {
+                    --top-safe-space: 14px;
+                    --footer-height: 68px;
+                    --bottom-safe-space: 14px;
+                    padding-left: 12px;
+                    padding-right: 12px;
+                }
+
+                .container {
+                    padding: 24px 20px;
+                    border-radius: 10px;
+                    width: min(100%, 520px);
+                }
+            }
+
+            @media (max-width: 480px) {
+                body {
+                    --top-safe-space: 12px;
+                    --footer-height: 64px;
+                    --bottom-safe-space: 12px;
+                }
+
+                .container {
+                    padding: 20px 14px;
+                    border-radius: 10px;
+                }
+
+                .chatbot-toggle {
+                    right: 14px;
+                    bottom: calc(var(--footer-height) + 12px);
+                    width: 52px;
+                    height: 52px;
+                    font-size: 21px;
+                }
+
+                .chat-window {
+                    right: 10px;
+                    bottom: calc(var(--footer-height) + 74px);
+                    width: min(92vw, 320px);
+                }
+            }
                 
         </style>
     </head>
     <body>
 
     <div class="container">
-        <a href="Landing.html"><img src="xcel-hub-logo.png" class="form-logo" alt="Description of the image">
+        <a href="index.html"><img src="xcel-hub-logo.png" class="form-logo" alt="Description of the image">
         </a>
 
         <div id="loginView" class="view-section active">
