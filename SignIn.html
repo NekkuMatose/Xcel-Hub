@@ -268,14 +268,16 @@
             }
 
             .sponsor-logo img.sponsor-logo-google,
-            .sponsor-logo img.sponsor-logo-godaddy {
-                transform: scale(1.14);
+            .sponsor-logo img.sponsor-logo-godaddy,
+            .sponsor-logo img.sponsor-logo-visa {
+                transform: scale(1.5);
                 transform-origin: center;
             }
 
             .sponsor-logo img.sponsor-logo-google:hover,
-            .sponsor-logo img.sponsor-logo-godaddy:hover {
-                transform: scale(1.14) translateY(-1px);
+            .sponsor-logo img.sponsor-logo-godaddy:hover,
+            .sponsor-logo img.sponsor-logo-visa:hover {
+                transform: scale(1.5) translateY(-1px);
             }
 
 
@@ -289,9 +291,9 @@
             ========================================= */
             .chatbot-toggle {
                 position: fixed;
-                bottom: 75px; /* Adjust this to move the chat bubble up or down */
-                right: 30px; /* Adjust this to move it left or right */
-                background-color: #35858E; /* Chat bubble color */
+                bottom: 75px;
+                right: 30px;
+                background-color: #22c55e;
                 color: white;
                 width: 60px;
                 height: 60px;
@@ -300,7 +302,7 @@
                 justify-content: center;
                 align-items: center;
                 font-size: 24px;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
                 cursor: pointer;
                 z-index: 1000;
                 transition: transform 0.3s, background-color 0.3s;
@@ -308,7 +310,7 @@
 
             .chatbot-toggle:hover {
                 transform: scale(1.1);
-                background-color: #5B7E3C; /* Color when hovering over chat bubble */
+                background-color: #16a34a;
             }
 
             .chat-window {
@@ -327,7 +329,7 @@
             }
 
             .chat-header {
-                background-color: #A2CB8B; /* Chat window top bar color */
+                background-color: #22c55e;
                 color: white;
                 padding: 15px;
                 font-weight: bold;
@@ -361,15 +363,16 @@
             }
 
             .bot-message {
-                background-color: #e0e0e0;
-                align-self: flex-start; /* Aligns bot messages to the left */
+                background-color: #dcfce7;
+                align-self: flex-start;
                 border-bottom-left-radius: 0;
+                color: #166534;
             }
 
             .user-message {
-                background-color: #A2CB8B;
+                background-color: #22c55e;
                 color: white;
-                align-self: flex-end; /* Aligns your messages to the right */
+                align-self: flex-end;
                 border-bottom-right-radius: 0;
             }
 
@@ -390,7 +393,7 @@
                 width: auto;
                 margin: 0;
                 border-radius: 0;
-                background-color: #A2CB8B;
+                background-color: #22c55e;
                 padding: 0 20px;
             }
 

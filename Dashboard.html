@@ -67,6 +67,210 @@
 
     .logout-btn:hover { background: #247448; }
 
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .notification-bell {
+      position: relative;
+      cursor: pointer;
+      font-size: 1.3rem;
+      color: var(--secondary);
+      padding: 8px;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .notification-bell:hover {
+      background: rgba(53, 133, 142, 0.1);
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      background: #ef4444;
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 700;
+      min-width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #fff;
+    }
+
+    .notification-panel {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 320px;
+      max-height: 400px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+      border: 1px solid #e2e8f0;
+      display: none;
+      flex-direction: column;
+      z-index: 100;
+      overflow: hidden;
+    }
+
+    .notification-panel.show {
+      display: flex;
+      animation: modalPopIn 0.25s ease forwards;
+    }
+
+    .notification-header {
+      padding: 14px 16px;
+      background: #22c55e;
+      color: white;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .notification-footer {
+      padding: 8px 16px;
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+      font-size: 0.82rem;
+      color: #64748b;
+      text-align: center;
+    }
+
+    .notification-header span {
+      cursor: pointer;
+      font-size: 0.85rem;
+      opacity: 0.85;
+    }
+
+    .notification-header span:hover {
+      opacity: 1;
+    }
+
+    .notification-list {
+      max-height: 280px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .notification-item {
+      padding: 12px 16px;
+      border-bottom: 1px solid #f1f5f9;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .notification-item:hover {
+      background: #f8fafc;
+    }
+
+    .notification-item.unread {
+      background: #f0fdf4;
+      border-left: 3px solid #22c55e;
+    }
+
+    .notification-item.reading {
+      transform: scale(0.98);
+      opacity: 0.7;
+    }
+
+    .notification-item.unread:hover {
+      background: #dcfce7;
+    }
+
+    .notif-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+
+    .notif-message {
+      font-size: 0.82rem;
+      color: #64748b;
+      line-height: 1.4;
+    }
+
+    .notif-time {
+      font-size: 0.72rem;
+      color: #94a3b8;
+      margin-top: 6px;
+    }
+
+    .notification-empty {
+      padding: 30px 16px;
+      text-align: center;
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    .progress-section {
+      margin-top: 16px;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+    }
+
+    .progress-bar {
+      height: 10px;
+      background: rgba(255,255,255,0.25);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #4ade80, #22c55e);
+      border-radius: 5px;
+      transition: width 0.5s ease;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid #e1ece6;
+      border-radius: 12px;
+      padding: 14px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(30, 70, 55, 0.05);
+    }
+
+    .stat-icon {
+      font-size: 1.5rem;
+      margin-bottom: 6px;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--secondary);
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
     .container {
       max-width: 1050px;
       margin: 28px auto;
@@ -141,9 +345,150 @@
       background: #fff;
       border: 1px solid #e1ece6;
       border-radius: 14px;
-      padding: 20px;
+      padding: 24px;
       box-shadow: 0 8px 18px rgba(30, 70, 55, 0.06);
       margin-bottom: 18px;
+    }
+
+.quick-actions-grid {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 8px;
+      margin-top: 12px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+    }
+
+    .quick-actions-grid::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .quick-actions-grid::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 2px;
+    }
+
+    .quick-actions-grid::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 2px;
+    }
+
+    .quick-actions-grid::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    .quick-action-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 10px 8px;
+      border: 1px solid #e3f2e6;
+      border-radius: 8px;
+      background: #f8fcf9;
+      text-decoration: none;
+      color: inherit;
+      font-weight: 600;
+      font-size: 0.8rem;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      cursor: pointer;
+      min-height: 64px;
+      flex-shrink: 0;
+      width: 120px;
+    }
+
+    .quick-action-btn:hover {
+      border-color: var(--secondary);
+      background: #f0f9f3;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(46, 139, 87, 0.15);
+    }
+
+    .quick-action-btn:active {
+      transform: translateY(0);
+    }
+
+    .quick-action-btn.loading {
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    .quick-action-btn.loading::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      margin: -10px 0 0 -10px;
+      border: 2px solid #e3f2e6;
+      border-top: 2px solid var(--secondary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+.quick-action-icon {
+      font-size: 1.3rem;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #e8f5e8, #f0f9f3);
+      color: var(--secondary);
+      transition: all 0.2s;
+    }
+
+    .quick-action-btn:hover .quick-action-icon {
+      transform: scale(1.1);
+      background: linear-gradient(135deg, #d4edda, #e8f5e8);
+    }
+
+    .quick-action-label {
+      text-align: center;
+      line-height: 1.3;
+      max-width: 100%;
+    }
+
+.action-category {
+      background: linear-gradient(135deg, #e3f2fd 0%, #f3e8ff 100%);
+      border: 1px solid #e1f5fe;
+      color: #1e40af;
+      font-weight: 700;
+      padding: 6px 12px;
+      margin-bottom: 4px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .success-toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #10b981;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+      transform: translateX(400px);
+      opacity: 0;
+      z-index: 3000;
+      transition: all 0.3s ease;
+    }
+
+    .success-toast.show {
+      transform: translateX(0);
+      opacity: 1;
     }
 
     .activity-panel {
@@ -223,7 +568,7 @@
       position: fixed;
       bottom: 75px;
       right: 30px;
-      background-color: #35858E;
+      background-color: #22c55e;
       color: white;
       width: 60px;
       height: 60px;
@@ -232,7 +577,7 @@
       justify-content: center;
       align-items: center;
       font-size: 24px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
       cursor: pointer;
       z-index: 1000;
       transition: transform 0.3s, background-color 0.3s;
@@ -240,7 +585,7 @@
 
     .chatbot-toggle:hover {
       transform: scale(1.1);
-      background-color: #5B7E3C;
+      background-color: #16a34a;
     }
 
     .chat-window {
@@ -259,7 +604,7 @@
     }
 
     .chat-header {
-      background-color: #A2CB8B;
+      background-color: #22c55e;
       color: white;
       padding: 15px;
       font-weight: bold;
@@ -289,13 +634,14 @@
     }
 
     .bot-message {
-      background-color: #e0e0e0;
+      background-color: #dcfce7;
       align-self: flex-start;
       border-bottom-left-radius: 0;
+      color: #166534;
     }
 
     .user-message {
-      background-color: #A2CB8B;
+      background-color: #22c55e;
       color: white;
       align-self: flex-end;
       border-bottom-right-radius: 0;
@@ -314,7 +660,7 @@
       width: auto;
       margin: 0;
       border-radius: 0;
-      background-color: #A2CB8B;
+      background-color: #22c55e;
       padding: 0 20px;
       border: none;
       color: white;
@@ -415,10 +761,30 @@
 <body>
   <header class="topbar">
     <div class="brand">
-      <img src="xcel-hub-logo.png" alt="Xcel Hub Logo" />
+      <img src="Icon.png" alt="Xcel Hub Logo" />
       <span>Xcel Hub Dashboard</span>
     </div>
-    <button class="logout-btn" id="logoutBtn">Log Out</button>
+    <div class="topbar-actions">
+      <div class="notification-bell" id="notificationBell">
+        🔔
+        <span class="notification-badge" id="notifBadge">0</span>
+      </div>
+      <div class="notification-panel" id="notifPanel">
+        <div class="notification-header">
+          <span>Notifications</span>
+          <span onclick="markAllRead()">Mark all read</span>
+        </div>
+        <div class="notification-list" id="notifList">
+        </div>
+        <div class="notification-empty" id="notifEmpty">
+          No notifications yet.
+        </div>
+        <div class="notification-footer">
+          <span id="notifCountAll">0 total</span>
+        </div>
+      </div>
+      <button class="logout-btn" id="logoutBtn">Log Out</button>
+    </div>
   </header>
 
   <main class="container">
@@ -427,9 +793,41 @@
         <div>
           <h1 id="welcomeTitle">Welcome!</h1>
           <p>Access your training workspace, quick links, and personalized session tools.</p>
+          <div class="progress-section">
+            <div class="progress-label">
+              <span>Training Progress</span>
+              <span id="progressPercent">45%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill" style="width: 45%;"></div>
+            </div>
+          </div>
         </div>
         <img id="heroAvatar" class="hero-avatar" src="https://ui-avatars.com/api/?name=User&background=ffffff&color=2e8b57&bold=true" alt="Profile picture" />
       </div>
+    </section>
+
+    <section class="stats-grid">
+      <article class="stat-card">
+        <div class="stat-icon">⏱️</div>
+        <div class="stat-value" id="statHours">12</div>
+        <div class="stat-label">Hours Completed</div>
+      </article>
+      <article class="stat-card">
+        <div class="stat-icon">📚</div>
+        <div class="stat-value" id="statModules">3</div>
+        <div class="stat-label">Modules Done</div>
+      </article>
+      <article class="stat-card">
+        <div class="stat-icon">🏆</div>
+        <div class="stat-value" id="statBadges">2</div>
+        <div class="stat-label">Badges Earned</div>
+      </article>
+      <article class="stat-card">
+        <div class="stat-icon">📜</div>
+        <div class="stat-value" id="statCerts">1</div>
+        <div class="stat-label">Certificates</div>
+      </article>
     </section>
 
     <section class="cards">
@@ -457,11 +855,48 @@
 
     <section class="action-panel">
       <h2>Quick Actions</h2>
-      <p>Quick access to Other Site</p>
-      <div class="actions">
-        <a href="ProfileSettings.html" id="openProfileSettingsLink">Open Profile Settings</a>
-        <a href="SignIn.html" id="openSignInLink">Open Sign In</a>
-        <a href="Landing.html" id="openLandingLink">Open Landing Page</a>
+      <p>Fast access to your most used tools and features</p>
+      
+      <div class="quick-actions-grid">
+        <div class="action-category">Profile & Settings</div>
+        <a href="ProfileSettings.html" class="quick-action-btn" id="profileAction" title="Update profile photo and details (P)">
+          <div class="quick-action-icon">👤</div>
+          <div class="quick-action-label" id="profileLabel">Update Profile</div>
+        </a>
+        <a href="ProfileSettings.html" class="quick-action-btn" id="passwordAction" title="Change your account password">
+          <div class="quick-action-icon">🔒</div>
+          <div class="quick-action-label">Change Password</div>
+        </a>
+
+        <div class="action-category">Session Tools</div>
+        <a href="SignIn.html" class="quick-action-btn" id="newSessionAction" title="Start new training session (S)">
+          <div class="quick-action-icon">📝</div>
+          <div class="quick-action-label">New Session</div>
+        </a>
+        <a href="#" class="quick-action-btn" id="exportAction" title="Export your recent sessions as CSV">
+          <div class="quick-action-icon">📊</div>
+          <div class="quick-action-label">Export Records</div>
+        </a>
+
+        <div class="action-category">Dashboard</div>
+        <a href="#" class="quick-action-btn" id="statsAction" title="View detailed training statistics">
+          <div class="quick-action-icon">📈</div>
+          <div class="quick-action-label">View Stats</div>
+        </a>
+        <a href="#" class="quick-action-btn" id="resetAction" title="Reset demo progress (D)">
+          <div class="quick-action-icon">🔄</div>
+          <div class="quick-action-label">Reset Demo</div>
+        </a>
+
+        <div class="action-category">Account</div>
+        <button class="quick-action-btn" id="quickLogoutBtn" title="Fast logout (L)">
+          <div class="quick-action-icon">🚪</div>
+          <div class="quick-action-label">Quick Logout</div>
+        </button>
+        <button class="quick-action-btn" id="clearCacheBtn" title="Clear app cache and data">
+          <div class="quick-action-icon">🧹</div>
+          <div class="quick-action-label">Clear Cache</div>
+        </button>
       </div>
     </section>
 
@@ -535,6 +970,7 @@
     }
 
     const logoutBtn = document.getElementById('logoutBtn');
+    const quickLogoutBtn = document.getElementById('quickLogoutBtn');
     const logoutModalOverlay = document.getElementById('logoutModalOverlay');
     const cancelLogoutBtn = document.getElementById('cancelLogoutBtn');
     const confirmLogoutBtn = document.getElementById('confirmLogoutBtn');
@@ -550,13 +986,24 @@
     const activityEmpty = document.getElementById('activityEmpty');
     let pendingQuickNavUrl = '';
 
+    // Notification System
+    const NOTIFICATION_KEY = 'xcelhub-notifications-v1';
+    const notificationBell = document.getElementById('notificationBell');
+    const notifPanel = document.getElementById('notifPanel');
+    const notifList = document.getElementById('notifList');
+    const notifEmpty = document.getElementById('notifEmpty');
+    const notifBadge = document.getElementById('notifBadge');
+    const notifCountAll = document.getElementById('notifCountAll');
+
 
     logoutBtn.addEventListener('click', () => logoutModalOverlay.classList.add('show'));
+    quickLogoutBtn.addEventListener('click', () => logoutModalOverlay.classList.add('show'));
     cancelLogoutBtn.addEventListener('click', () => logoutModalOverlay.classList.remove('show'));
     logoutModalOverlay.addEventListener('click', (event) => {
       if (event.target === logoutModalOverlay) logoutModalOverlay.classList.remove('show');
     });
     confirmLogoutBtn.addEventListener('click', () => {
+      appendActivityLog(loggedInUser, 'Logged out from Dashboard');
       localStorage.removeItem('xcelCurrentUser');
       window.location.href = 'SignIn.html';
     });
@@ -602,6 +1049,11 @@
 
     appendActivityLog(loggedInUser, 'Opened Dashboard');
     renderRecentActivities();
+
+    // Initialize notifications
+    initNotifications();
+    createWelcomeNotification();
+    checkSessionReminder();
 
     function openQuickNavWarning(targetUrl) {
       pendingQuickNavUrl = targetUrl;
@@ -653,6 +1105,169 @@
       const currentStyle = window.getComputedStyle(chatWindow).display;
       chatWindow.style.display = currentStyle === 'none' ? 'flex' : 'none';
     }
+
+    // Notification functions
+    function initNotifications() {
+      let notifications = JSON.parse(localStorage.getItem(NOTIFICATION_KEY) || '[]');
+      
+      // Migrate old format if needed
+      notifications = notifications.map(notif => ({
+        id: notif.id || Date.now() + Math.random(),
+        title: notif.title || notif.notifTitle || 'Notification',
+        message: notif.message || notif.notifMessage || '',
+        timestamp: notif.timestamp || new Date().toISOString(),
+        read: notif.read || false
+      }));
+
+      localStorage.setItem(NOTIFICATION_KEY, JSON.stringify(notifications));
+      renderNotifications();
+    }
+
+    function createNotification(title, message, read = false) {
+      const notifications = getNotifications();
+      const newNotif = {
+        id: Date.now() + Math.random(),
+        title,
+        message,
+        timestamp: new Date().toISOString(),
+        read
+      };
+      
+      notifications.unshift(newNotif);
+      localStorage.setItem(NOTIFICATION_KEY, JSON.stringify(notifications));
+      renderNotifications();
+      
+      // Auto-show panel for new notifications
+      if (!read) {
+        notifPanel.classList.add('show');
+        updateBadge();
+      }
+    }
+
+    function getNotifications() {
+      return JSON.parse(localStorage.getItem(NOTIFICATION_KEY) || '[]');
+    }
+
+    function markNotificationRead(id) {
+      const notifications = getNotifications();
+      const notif = notifications.find(n => n.id === id);
+      if (notif && !notif.read) {
+        notif.read = true;
+        localStorage.setItem(NOTIFICATION_KEY, JSON.stringify(notifications));
+        renderNotifications();
+        updateBadge();
+      }
+    }
+
+    function markAllRead() {
+      const notifications = getNotifications();
+      const hasUnread = notifications.some(n => !n.read);
+      if (hasUnread) {
+        notifications.forEach(n => n.read = true);
+        localStorage.setItem(NOTIFICATION_KEY, JSON.stringify(notifications));
+        renderNotifications();
+        updateBadge();
+      }
+      notifPanel.classList.remove('show');
+    }
+
+    function renderNotifications() {
+      const notifications = getNotifications().slice(0, 10); // Show latest 10
+      notifList.innerHTML = '';
+
+      if (!notifications.length) {
+        notifEmpty.style.display = 'block';
+        notifCountAll.textContent = '0 total';
+        updateBadge();
+        return;
+      }
+
+      notifEmpty.style.display = 'none';
+      
+      notifications.forEach(notif => {
+        const item = document.createElement('div');
+        item.className = `notification-item ${notif.read ? '' : 'unread'}`;
+        item.onclick = () => {
+          item.classList.add('reading');
+          setTimeout(() => markNotificationRead(notif.id), 150);
+        };
+        item.innerHTML = `
+          <div class="notif-title">${notif.title}</div>
+          <div class="notif-message">${notif.message}</div>
+          <div class="notif-time">${formatTimeAgo(notif.timestamp)}</div>
+        `;
+        notifList.appendChild(item);
+      });
+
+      notifCountAll.textContent = `${getNotifications().length} total`;
+      updateBadge();
+    }
+
+    function updateBadge() {
+      const unreadCount = getNotifications().filter(n => !n.read).length;
+      const badge = notifBadge;
+      badge.textContent = unreadCount;
+      badge.style.display = unreadCount > 0 ? 'flex' : 'none';
+    }
+
+    function formatTimeAgo(timestamp) {
+      const now = new Date();
+      const notifTime = new Date(timestamp);
+      const diffMs = now - notifTime;
+      const diffMins = Math.floor(diffMs / 60000);
+      const diffHours = Math.floor(diffMins / 60);
+      const diffDays = Math.floor(diffHours / 24);
+
+      if (diffMins < 1) return 'Just now';
+      if (diffMins < 60) return `${diffMins}m ago`;
+      if (diffHours < 24) return `${diffHours}h ago`;
+      return `${diffDays}d ago`;
+    }
+
+    function createWelcomeNotification() {
+      const notifications = getNotifications();
+      const today = new Date().toDateString();
+      const lastWelcome = localStorage.getItem('lastWelcomeNotif');
+      
+      if (!lastWelcome || lastWelcome !== today) {
+        createNotification(
+          'Welcome Back!',
+          `Good to see you again, ${loggedInUser}! Your dashboard is ready.`,
+          true
+        );
+        localStorage.setItem('lastWelcomeNotif', today);
+      }
+    }
+
+    function checkSessionReminder() {
+      const lastReminder = localStorage.getItem('lastSessionReminder');
+      const now = Date.now();
+      const oneDay = 24 * 60 * 60 * 1000;
+      
+      if (!lastReminder || now - parseInt(lastReminder) > oneDay) {
+        createNotification(
+          'Session Reminder',
+          'Don\'t forget to log your OJT hours today via SignIn page.',
+          false
+        );
+        localStorage.setItem('lastSessionReminder', now.toString());
+      }
+    }
+
+    function toggleNotifications(event) {
+      event.stopPropagation();
+      notifPanel.classList.toggle('show');
+      if (notifPanel.classList.contains('show')) {
+        renderNotifications();
+      }
+    }
+
+    // Close panel on outside click
+    document.addEventListener('click', (event) => {
+      if (!notificationBell.contains(event.target) && !notifPanel.contains(event.target)) {
+        notifPanel.classList.remove('show');
+      }
+    });
 
     function handleEnter(event) {
       if (event.key === "Enter") sendChatMessage();
